@@ -43,10 +43,9 @@ class TicketSerializer(serializers.ModelSerializer):
         model = Ticket
         fields = '__all__'
 
-# Serializador para Usuario
 class UsuarioSerializer(serializers.ModelSerializer):
-    usuario = serializers.StringRelatedField()  # Mostrar el nombre de usuario asociado
-    
+    compania = serializers.PrimaryKeyRelatedField(queryset=Compania.objects.all(), many=True, required=False)
+
     class Meta:
         model = Usuario
-        fields = '__all__'
+        fields = ['cedula', 'contrasena', 'correo', 'usuario', 'compania']

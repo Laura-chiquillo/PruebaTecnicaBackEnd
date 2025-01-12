@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar Sesión</title>
+    <style>
+        /* Estilos generales del cuerpo */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f2f5;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: #333;
+        }
+
+        /* Estilo del contenedor del formulario */
+        .login-container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            margin: 10px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #4CAF50;
+            margin-bottom: 20px;
+        }
+
+        /* Estilos de los campos del formulario */
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        input[type="email"],
+        input[type="password"],
+        input[type="text"],
+        input[type="number"] { /* Agregado el estilo para el campo de cédula */
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0 20px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        input[type="email"]:focus,
+        input[type="password"]:focus,
+        input[type="text"]:focus,
+        input[type="number"]:focus { /* Estilo cuando se enfoca el campo */
+            border-color: #4CAF50;
+            outline: none;
+        }
+
+        /* Estilo específico para la cédula */
+        #nuevocedula {
+            border: 1px solid #4CAF50; /* Borde verde para la cédula */
+            font-size: 16px; /* Tamaño de fuente personalizado */
+            padding: 10px; /* Espaciado dentro del campo */
+        }
+
+        /* Estilos del botón */
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            width: 100%;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        /* Mensaje de error */
+        #error-message {
+            color: red;
+            text-align: center;
+            margin-top: 10px;
+            font-size: 14px;
+        }
+
+        /* Diseño responsive */
+        @media (max-width: 480px) {
+            .login-container {
+                padding: 20px;
+            }
+
+            h2 {
+                font-size: 20px;
+            }
+        }
+
+        .form-toggle {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .form-toggle a {
+            color: #4CAF50;
+            text-decoration: none;
+        }
+
+        .form-toggle a:hover {
+            text-decoration: underline;
+        }
+
+        .switch-form {
+            display: none;
+        }
+
+        .switch-form.active {
+            display: block;
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <div class="login-container">
+        <h2>Iniciar Sesión</h2>
+
+        <!-- Formulario de login -->
+        <form id="loginForm" method="POST">
+            {% csrf_token %}
+
+            <label for="correo">Correo:</label>
+            <input type="email" id="correo" name="correo" required>
+
+            <label for="contrasena">Contraseña:</label>
+            <input type="password" id="contrasena" name="contrasena" required>
+
+            <button type="submit">Iniciar Sesión</button>
+        </form>
+
+        <p id="error-message"></p>
+
+        <div class="form-toggle">
+            <a href="#" id="toggle-to-register">¿No tienes cuenta? Crea una aquí</a>
+        </div>
+    </div>
+
+    <div class="login-container switch-form" id="registerFormContainer">
+        <h2>Crear Usuario</h2>
+
+        <!-- Formulario de registro -->
+        <form id="registerForm" method="POST">
+            {% csrf_token %}
+        
+            <label for="nuevoCorreo">Correo:</label>
+            <input type="email" id="nuevoCorreo" name="correo" required>
+        
+            <label for="nuevocedula">Cédula:</label>
+            <input type="number" id="nuevocedula" name="cedula" required>
+        
+            <label for="nuevoUsuario">Usuario:</label>
+            <input type="text" id="nuevoUsuario" name="usuario" required>
+        
+            <label for="nuevoContrasena">Contraseña:</label>
+            <input type="password" id="nuevoContrasena" name="contrasena" required>
+        
+            <button type="submit">Crear Cuenta</button>
+        </form>
+        
+
+        <p id="register-error-message"></p>
+
+        <div class="form-toggle">
+            <a href="#" id="toggle-to-login">¿Ya tienes cuenta? Inicia sesión aquí</a>
+        </div>
+    </div>
+
+    <script>
+        // Manejo del formulario de login
+        document.getElementById('loginForm').addEventListener('submit', async function (event) {
+            event.preventDefault();
+        
+            const correo = document.getElementById('correo').value;
+            const contrasena = document.getElementById('contrasena').value;
+            console.log({ correo, contrasena });
+
+            const response = await fetch('/api/token/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ correo, contrasena })
+            });
+        
+            const data = await response.json();
+        
+            if (response.ok) {
+                // Guardar token en localStorage
+                localStorage.setItem('access_token', data.token.access);
+                localStorage.setItem('refresh_token', data.token.refresh);
+                localStorage.setItem('user_data', JSON.stringify(data.user_data));
+        
+                // Redirigir a la página de inicio
+                window.location.href = '/crear_ticket/';
+            } else {
+                // Mostrar mensaje de error
+                document.getElementById('error-message').textContent = data.error || 'Error desconocido';
+            }
+        });
+        
+
+        // Manejo del formulario de registro
+        // Manejo del formulario de registro
+        // Manejo del formulario de registro
+        document.getElementById('registerForm').addEventListener('submit', async function (event) {
+            event.preventDefault(); // Evitar envío del formulario
+
+            const correo = document.getElementById('nuevoCorreo').value;
+            const usuario = document.getElementById('nuevoUsuario').value;
+            const contrasena = document.getElementById('nuevoContrasena').value;
+            const cedula = document.getElementById('nuevocedula').value;
+
+            // Verifica que todos los campos estén presentes
+            if (!correo || !usuario || !contrasena || !cedula) {
+                console.log('Todos los campos son requeridos.');
+                return;
+            }
+
+            const response = await fetch('/api/register/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ correo, usuario, contrasena, cedula })
+            });
+
+            const data = await response.json();
+            console.log(data);  // Revisa la respuesta detallada del backend
+
+            if (response.ok) {
+                // Limpiar los campos después de crear la cuenta
+                document.getElementById('nuevoCorreo').value = '';
+                document.getElementById('nuevoUsuario').value = '';
+                document.getElementById('nuevoContrasena').value = '';
+                document.getElementById('nuevocedula').value = '';
+
+                // Redirigir al login tras crear la cuenta
+                document.getElementById('registerFormContainer').classList.remove('active');
+                document.getElementById('loginForm').parentElement.classList.add('active');
+            } else {
+                // Mostrar mensaje de error
+                document.getElementById('register-error-message').textContent = data.error || 'Error desconocido';
+            }
+        });
+
+
+
+        // Alternar entre los formularios de login y registro
+        document.getElementById('toggle-to-register').addEventListener('click', function () {
+            document.getElementById('loginForm').parentElement.classList.remove('active');
+            document.getElementById('registerFormContainer').classList.add('active');
+        });
+
+        document.getElementById('toggle-to-login').addEventListener('click', function () {
+            document.getElementById('registerFormContainer').classList.remove('active');
+            document.getElementById('loginForm').parentElement.classList.add('active');
+        });
+    </script>
+
+</body>
+
+</html>
