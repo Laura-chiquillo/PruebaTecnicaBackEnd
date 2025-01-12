@@ -62,8 +62,8 @@ class Usuario(models.Model):
     cedula = models.CharField(max_length=50, primary_key=True)
     contrasena = models.CharField(max_length=128)
     correo = models.CharField(max_length=150)
-    usuario = models.OneToOneField(User, on_delete=models.CASCADE)
-    Compania = models.ManyToManyField(Compania, related_name='usuarios', blank=True)
+    usuario = models.CharField(max_length=150)
+    compania = models.ManyToManyField(Compania, related_name='usuarios', blank=True)
 
     class Meta:
         db_table = 'usuario'
