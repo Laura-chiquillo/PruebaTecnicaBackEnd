@@ -1,18 +1,12 @@
 from rest_framework import viewsets
-from .models import Compañía, Proyecto, HistoriaDeUsuario, Estado, Ticket, Usuario
-from .serializers import CompañíaSerializer, ProyectoSerializer, HistoriaDeUsuarioSerializer, EstadoSerializer, TicketSerializer, UsuarioSerializer
+from .models import Compania, Proyecto, HistoriaDeUsuario, Estado, Ticket, Usuario
+from .serializers import CompaniaSerializer, ProyectoSerializer, HistoriaDeUsuarioSerializer, EstadoSerializer, TicketSerializer, UsuarioSerializer
 
-from rest_framework.views import APIView
-from rest_framework.response import Response
-from rest_framework import status
-from django.contrib.auth import authenticate
-from django.contrib.auth import login
-from .serializers import LoginSerializer
 
 # Vista para Compañía
-class CompañíaViewSet(viewsets.ModelViewSet):
-    queryset = Compañía.objects.all()
-    serializer_class = CompañíaSerializer
+class CompaniaViewSet(viewsets.ModelViewSet):
+    queryset = Compania.objects.all()
+    serializer_class = CompaniaSerializer
 
 # Vista para Proyecto
 class ProyectoViewSet(viewsets.ModelViewSet):

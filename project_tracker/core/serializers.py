@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Compañía, Proyecto, HistoriaDeUsuario, Estado, Ticket, Usuario
+from .models import Compania, Proyecto, HistoriaDeUsuario, Estado, Ticket, Usuario
 from rest_framework import serializers
 
 class LoginSerializer(serializers.Serializer):
@@ -7,14 +7,14 @@ class LoginSerializer(serializers.Serializer):
     contrasena = serializers.CharField(write_only=True)
 
 # Serializador para la Compañía
-class CompañíaSerializer(serializers.ModelSerializer):
+class CompaniaSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Compañía
+        model = Compania
         fields = '__all__'
 
 # Serializador para Proyecto
 class ProyectoSerializer(serializers.ModelSerializer):
-    compañía = CompañíaSerializer()
+    compañía = CompaniaSerializer()
     
     class Meta:
         model = Proyecto

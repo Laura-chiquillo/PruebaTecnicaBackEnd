@@ -7,12 +7,12 @@ from django.contrib.auth.hashers import check_password
 from rest_framework_simplejwt.tokens import RefreshToken
 
 # Modelo para la Compañía
-class Compañía(models.Model):
+class Compania(models.Model):
     id = models.CharField(max_length=20, primary_key=True)
     nombre = models.CharField(max_length=100)
-    teléfono = models.CharField(max_length=20)
-    dirección = models.CharField(max_length=255)
-    correo_electronico = models.EmailField()
+    telefono = models.CharField(max_length=20)
+    direccion = models.CharField(max_length=255)
+    correo = models.EmailField()
 
     class Meta:
         db_table = 'compania'
@@ -20,9 +20,9 @@ class Compañía(models.Model):
 # Modelo para Proyecto
 class Proyecto(models.Model):
     id = models.AutoField(primary_key=True)
-    compañía = models.ForeignKey(Compañía, related_name='proyectos', on_delete=models.CASCADE)
+    Compania = models.ForeignKey(Compania, related_name='proyectos', on_delete=models.CASCADE)
     nombre = models.CharField(max_length=100)
-    descripción = models.TextField()
+    descripcion = models.TextField()
 
     class Meta:
         db_table = 'proyecto'
@@ -31,8 +31,8 @@ class Proyecto(models.Model):
 class HistoriaDeUsuario(models.Model):
     id = models.AutoField(primary_key=True)
     proyecto = models.ForeignKey(Proyecto, related_name='historias', on_delete=models.CASCADE)
-    título = models.CharField(max_length=200)
-    descripción = models.TextField()
+    titulo = models.CharField(max_length=200)
+    descripcion = models.TextField()
 
     class Meta:
         db_table = 'historiaDeUsuario'
@@ -48,9 +48,9 @@ class Estado(models.Model):
 # Modelo para Ticket de Desarrollo
 class Ticket(models.Model):
     id = models.AutoField(primary_key=True)
-    historia_de_usuario = models.ForeignKey(HistoriaDeUsuario, related_name='tickets', on_delete=models.CASCADE)
-    título = models.CharField(max_length=200)
-    descripción = models.TextField()
+    historiaDeUsuario = models.ForeignKey(HistoriaDeUsuario, related_name='tickets', on_delete=models.CASCADE)
+    titulo = models.CharField(max_length=200)
+    descripcion = models.TextField()
     comentarios = models.TextField(blank=True)
     estado = models.ForeignKey(Estado, related_name='tickets', on_delete=models.SET_NULL, null=True)
 
@@ -63,7 +63,7 @@ class Usuario(models.Model):
     contrasena = models.CharField(max_length=128)
     correo = models.CharField(max_length=150)
     usuario = models.OneToOneField(User, on_delete=models.CASCADE)
-    compañías = models.ManyToManyField(Compañía, related_name='usuarios', blank=True)
+    Compania = models.ManyToManyField(Compania, related_name='usuarios', blank=True)
 
     class Meta:
         db_table = 'usuario'
@@ -101,7 +101,7 @@ class CustomAuthToken(APIView):
         user_data = {
             'cedula': usuario.cedula,
             'correo': usuario.correo,
-            'compañías': [compañia.nombre for compañia in usuario.compañías.all()],
+            'compañías': [Compania.nombre for Compania in usuario.compañías.all()],
             'usuario_id': usuario.usuario.id,
         }
 

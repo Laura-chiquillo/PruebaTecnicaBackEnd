@@ -2,11 +2,11 @@
 from django.urls import include, path
 from rest_framework.routers import DefaultRouter
 from .models import CustomAuthToken
-from .views import CompañíaViewSet, ProyectoViewSet, HistoriaDeUsuarioViewSet, EstadoViewSet, TicketViewSet, UsuarioViewSet
+from .views import CompaniaViewSet, ProyectoViewSet, HistoriaDeUsuarioViewSet, EstadoViewSet, TicketViewSet, UsuarioViewSet
 
 # Crear el router para la API
 router = DefaultRouter()
-router.register(r'compañias', CompañíaViewSet)
+router.register(r'companias', CompaniaViewSet)
 router.register(r'proyectos', ProyectoViewSet)
 router.register(r'historias', HistoriaDeUsuarioViewSet)
 router.register(r'estados', EstadoViewSet)
