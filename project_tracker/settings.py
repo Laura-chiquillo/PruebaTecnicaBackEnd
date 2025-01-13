@@ -106,11 +106,11 @@ WSGI_APPLICATION = 'project_tracker.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'prueba_db',    
-        'USER': 'postgres',        
-        'PASSWORD': '122302',   
-        'HOST': 'localhost',       
-        'PORT': '5432',           
+        'NAME': 'defaultdb',
+        'USER': 'avnadmin',
+        'PASSWORD':'AVNS_v7OV_QS6egfEXg8-PO7',
+        'HOST':'pg-3cafa9ce-unbosque-fc31.l.aivencloud.com',	
+        'PORT':'12396'
     }
 }
 
