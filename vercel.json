@@ -1,7 +1,13 @@
 {
-    "rewrites": [
-      { "source": "/api/(.*)", "destination": "http://127.0.0.1:8000/login/" },
-      { "source": "/:path*", "destination": "core/login.html" }
+    "builds": [{
+      "src": "app/wsgi.py",
+      "use": "@vercel/python",
+      "config": { "pythonVersion": "3.10" }
+    }],
+    "routes": [
+      {
+        "src": "/(.*)",
+        "dest": "app/wsgi.py"
+      }
     ]
   }
-  
