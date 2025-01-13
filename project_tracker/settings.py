@@ -26,7 +26,8 @@ SECRET_KEY = 'django-insecure-ek1sk9wkk2+()xw2#^qg6$-04^$lnd!+d7hfi*b5b-^+snvgtp
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '.vercel.app', 'prueba-tecnica-back-end.vercel.app']
+
 
 
 # Application definition
@@ -69,6 +70,7 @@ CORS_ALLOW_ALL_ORIGINS = True
 
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:4200',  # URL de tu frontend
+    'https://tu-dominio-en-vercel.vercel.app',
 ]
 SIMPLE_JWT = {
     'USER_ID_FIELD': 'cedula',  # Cambiar el campo de identificación a 'cedula'
