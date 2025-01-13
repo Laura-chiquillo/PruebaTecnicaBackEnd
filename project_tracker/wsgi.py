@@ -1,7 +1,7 @@
 """
 WSGI config for project_tracker project.
 
-It exposes the WSGI callable as a module-level variable named ``application``.
+It exposes the WSGI callable as a module-level variable named ``app``.
 
 For more information on this file, see
 https://docs.djangoproject.com/en/5.1/howto/deployment/wsgi/
@@ -12,4 +12,5 @@ from django.core.wsgi import get_wsgi_application
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'project_tracker.settings')
 
-application = get_wsgi_application()
+# Cambiar el nombre de 'application' a 'app' para compatibilidad con Vercel
+app = get_wsgi_application()
