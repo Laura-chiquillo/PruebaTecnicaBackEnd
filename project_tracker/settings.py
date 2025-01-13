@@ -102,6 +102,7 @@ WSGI_APPLICATION = 'project_tracker.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
+SESSION_ENGINE = 'django.contrib.sessions.backends.cached_db'
 
 DATABASES = {
     'default': {
@@ -150,7 +151,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = 'static/'
-
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),
+]
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
