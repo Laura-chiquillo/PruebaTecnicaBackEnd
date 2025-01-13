@@ -3,7 +3,7 @@ from . import views
 from .forms import CompaniaViewSet, ProyectoViewSet, HistoriaDeUsuarioViewSet, EstadoViewSet, TicketViewSet, UsuarioViewSet
 from rest_framework.routers import DefaultRouter
 from .forms import CompaniaViewSet, ProyectoViewSet, HistoriaDeUsuarioViewSet, EstadoViewSet, TicketViewSet, UsuarioViewSet
-
+from django.shortcuts import redirect
 router = DefaultRouter()
 router.register(r'companias', CompaniaViewSet)
 router.register(r'proyectos', ProyectoViewSet)
@@ -13,7 +13,7 @@ router.register(r'tickets', TicketViewSet)
 router.register(r'usuarios', UsuarioViewSet)
 
 urlpatterns = [
-    path('', views.index, name='index'),
+    path('', lambda request: redirect('login')),
     path('api/', include(router.urls)),
     path('api/token/', views.CustomAuthToken.as_view(), name='custom-auth-token'),
     path('login/', views.login_view, name='login'),
