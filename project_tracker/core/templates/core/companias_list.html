@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Compañías</title>
+    <style>
+        /* General styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f7f6;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 2.5rem;
+            color: #2c3e50;
+            margin-top: 20px;
+        }
+
+        a {
+            display: block;
+            width: 200px;
+            margin: 20px auto;
+            text-align: center;
+            text-decoration: none;
+            background-color: #3498db;
+            color: white;
+            padding: 10px;
+            font-size: 1.2rem;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        a:hover {
+            background-color: #2980b9;
+        }
+
+        /* List styling */
+        ul {
+            list-style: none;
+            padding: 0;
+            max-width: 800px;
+            margin: 20px auto;
+            background-color: #ffffff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        li {
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+            font-size: 1.1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        li:last-child {
+            border-bottom: none;
+        }
+
+        /* Add some space between list items and their container */
+        ul li {
+            padding: 15px;
+            background-color: #fafafa;
+            color: #555;
+        }
+
+        li .name {
+            font-weight: bold;
+            color: #34495e;
+        }
+
+        li .email {
+            font-style: italic;
+            color: #7f8c8d;
+        }
+
+        /* Button style */
+        .join-button {
+            background-color: #27ae60;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            font-size: 1rem;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .join-button:hover {
+            background-color: #2ecc71;
+        }
+    </style>
+</head>
+<body>
+    <h1>Lista de Compañías</h1>
+    <ul>
+        {% for compania in companias %}
+        <li>
+            <span class="name">{{ compania.nombre }}</span><span class="name">{{ compania.telefono }}</span> <span class="email">{{ compania.correo }}</span>
+            <form method="post" action="{% url 'unirse_compania' compania.id %}">
+                {% csrf_token %}
+                <button type="submit" class="join-button">Unirme</button>
+            </form>
+        </li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'dashboard' %}">Volver</a>
+</body>
+</html>

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f7fa;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #34495e;
+            color: #fff;
+            padding: 10px 0;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        h1 {
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+
+        .section {
+            margin-bottom: 20px;
+            padding: 20px;
+            border-radius: 8px;
+            background-color: #ecf0f1;
+        }
+
+        .section h2 {
+            margin-top: 0;
+            font-size: 1.5em;
+        }
+
+        .card {
+            background-color: #fff;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .card:hover {
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+        }
+
+        button {
+            background-color: #3498db;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .grid-item {
+            background-color: #fff;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .grid-item:hover {
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Dashboard</h1>
+</header>
+
+<div class="container">
+    <div class="section">
+        <h2>Ver las Empresas y Unirse</h2>
+        <div class="card">
+            <button onclick="window.location.href='{% url 'companias_list' %}'">Ver Compañías</button>
+            <button onclick="window.location.href='/ruta_a_unirse_empresa'">Unirse a Empresa</button>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Crear una Historia de Usuario con su Primer Ticket</h2>
+        <div class="card">
+            <button onclick="window.location.href='/crear_historia'">Crear Historia</button>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Levantar un Ticket o Solicitud de Desarrollo</h2>
+        <div class="card">
+            <button onclick="window.location.href='/crear_ticket'">Crear Ticket</button>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Editar un Ticket o Solicitud de Desarrollo</h2>
+        <div class="card">
+            <button onclick="window.location.href='/editar_ticket'">Editar Ticket</button>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Historial de Tickets y su Estado</h2>
+        <div class="card">
+            <button onclick="window.location.href='/ver_historial'">Ver Historial</button>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Cancelar un Ticket Activo</h2>
+        <div class="card">
+            <button onclick="window.location.href='/cancelar_ticket'">Cancelar Ticket</button>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

@@ -211,7 +211,7 @@
                 localStorage.setItem('user_data', JSON.stringify(data.user_data));
         
                 // Redirigir a la página de inicio
-                window.location.href = '/crear_ticket/';
+                window.location.href = '/dashboard/';
             } else {
                 // Mostrar mensaje de error
                 document.getElementById('error-message').textContent = data.error || 'Error desconocido';

@@ -63,7 +63,7 @@ class Usuario(models.Model):
     contrasena = models.CharField(max_length=128)
     correo = models.CharField(max_length=150)
     usuario = models.CharField(max_length=150)
-    compania = models.ManyToManyField(Compania, related_name='usuarios', blank=True)
+    compania = models.ManyToManyField(Compania, related_name='cedula', blank=True)
 
     class Meta:
         db_table = 'usuario'
